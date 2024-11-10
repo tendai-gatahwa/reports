@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Contributions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800 p-10">
+
+    <h1 class="text-3xl font-bold mb-6">Project Contributions</h1>
+
+    <!-- Contribution Overview -->
+    <div class="bg-white p-6 rounded-lg shadow mb-8">
+        <h2 class="text-2xl font-semibold mb-4">Contribution Overview</h2>
+        <p class="text-lg">Total Contribution: <span id="total-contribution" class="font-bold"></span></p>
+        <p class="text-lg">Total Active Users: <span id="total-active-users" class="font-bold"></span></p>
+        <p class="text-lg">Average Contribution per User: <span id="average-contribution" class="font-bold"></span></p>
+    </div>
+
+    <!-- Contribution by Tool Usage -->
+    <div class="bg-white p-6 rounded-lg shadow mb-8">
+        <h2 class="text-2xl font-semibold mb-4">Contribution by Tool Usage</h2>
+        <table class="min-w-full bg-white border border-gray-300">
+            <thead>
+                <tr>
+                    <th class="py-2 px-4 border border-gray-300">Tool</th>
+                    <th class="py-2 px-4 border border-gray-300">User</th>
+                    <th class="py-2 px-4 border border-gray-300">Action</th>
+                </tr>
+            </thead>
+            <tbody id="tool-usage">
+                <!-- Content will be generated dynamically -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Action Summary -->
+    <div class="bg-white p-6 rounded-lg shadow mb-8">
+        <h2 class="text-2xl font-semibold mb-4">Action Summary</h2>
+        <table class="min-w-full bg-white border border-gray-300">
+            <thead>
+                <tr>
+                    <th class="py-2 px-4 border border-gray-300">Action Type</th>
+                    <th class="py-2 px-4 border border-gray-300">Total Actors</th>
+                    <th class="py-2 px-4 border border-gray-300">Percentage of Total</th>
+                </tr>
+            </thead>
+            <tbody id="action-summary">
+                <!-- Content will be generated dynamically -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Top Contributions by Action Type -->
+    <div class="bg-white p-6 rounded-lg shadow">
+        <h2 class="text-2xl font-semibold mb-4">Top Contributions by Action Type</h2>
+        <table class="min-w-full bg-white border border-gray-300">
+            <thead>
+                <tr>
+                    <th class="py-2 px-4 border border-gray-300">Username</th>
+                    <th class="py-2 px-4 border border-gray-300">Circles Added</th>
+                    <th class="py-2 px-4 border border-gray-300">Rectangles Deleted</th>
+                    <th class="py-2 px-4 border border-gray-300">Triangles Deleted</th>
+                    <th class="py-2 px-4 border border-gray-300">Total Contribution</th>
+                </tr>
+            </thead>
+            <tbody id="top-contributions">
+                <!-- Content will be generated dynamically -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // Initialize and update counters
+        const updateCounter = (key, increment = 2) => {
+            let value = parseInt(localStorage.getItem(key) || Math.floor(Math.random() * 100 + 1));
+            value += increment;
+            localStorage.setItem(key, value);
+            return value;
+        };
+
+        const totalContribution = updateCounter('totalContribution');
+        const totalActiveUsers = updateCounter('totalActiveUsers');
+        const averageContribution = (totalContribution / totalActiveUsers).toFixed(2);
+
+        document.getElementById('total-contribution').textContent = totalContribution;
+        document.getElementById('total-active-users').textContent = totalActiveUsers;
+        document.getElementById('average-contribution').textContent = averageContribution;
+
+        // Contribution by Tool Usage
+        const toolUsageData = [
+            { tool: 'Circles', user: 'User 1', action: `Added ${updateCounter('circles', 1)} circles` },
+            { tool: 'Shapes', user: 'User 2', action: `Added ${updateCounter('shapes', 1)} shapes` },
+            { tool: 'Deleted', user: 'User 3', action: `Deleted ${updateCounter('deleted', 1)} items` },
+            { tool: 'Circles', user: 'User 4', action: `Modified ${updateCounter('modified', 1)} circles` }
+        ];
+
+        const toolUsageTable = document.getElementById('tool-usage');
+        toolUsageData.forEach(row => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td class="py-2 px-4 border border-gray-300">${row.tool}</td>
+                <td class="py-2 px-4 border border-gray-300">${row.user}</td>
+                <td class="py-2 px-4 border border-gray-300">${row.action}</td>
+            `;
+            toolUsageTable.appendChild(tr);
+        });
+
+        // Action Summary with dynamic percentages
+        const actionSummaryData = [
+            { type: 'Circle Added', actors: updateCounter('circleActors', 1), percentage: updateCounter('circlePercentage', 1) },
+            { type: 'Rectangle Deleted', actors: updateCounter('rectActors', 1), percentage: updateCounter('rectPercentage', 1) },
+            { type: 'Triangle Deleted', actors: updateCounter('triangleActors', 1), percentage: updateCounter('trianglePercentage', 1) }
+        ];
+
+        const actionSummaryTable = document.getElementById('action-summary');
+        actionSummaryData.forEach(row => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td class="py-2 px-4 border border-gray-300">${row.type}</td>
+                <td class="py-2 px-4 border border-gray-300">${row.actors}</td>
+                <td class="py-2 px-4 border border-gray-300">${row.percentage % 100}%</td>
+            `;
+            actionSummaryTable.appendChild(tr);
+        });
+
+        // Top Contributions by Action Type
+        const topContributionsData = [
+            { username: 'User A', circles: updateCounter('userA_circles', 1), rectangles: updateCounter('userA_rectangles', 1), triangles: updateCounter('userA_triangles', 1) },
+            { username: 'User B', circles: updateCounter('userB_circles', 1), rectangles: updateCounter('userB_rectangles', 1), triangles: updateCounter('userB_triangles', 1) },
+            { username: 'User C', circles: updateCounter('userC_circles', 1), rectangles: updateCounter('userC_rectangles', 1), triangles: updateCounter('userC_triangles', 1) }
+        ];
+
+        const topContributionsTable = document.getElementById('top-contributions');
+        topContributionsData.forEach(row => {
+            const totalContribution = row.circles + row.rectangles + row.triangles;
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td class="py-2 px-4 border border-gray-300">${row.username}</td>
+                <td class="py-2 px-4 border border-gray-300">${row.circles}</td>
+                <td class="py-2 px-4 border border-gray-300">${row.rectangles}</td>
+                <td class="py-2 px-4 border border-gray-300">${row.triangles}</td>
+                <td class="py-2 px-4 border border-gray-300">${totalContribution}</td>
+            `;
+            topContributionsTable.appendChild(tr);
+        });
+    </script>
+
+</body>
+</html>
