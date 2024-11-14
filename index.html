@@ -90,10 +90,10 @@
 
         // Contribution by Tool Usage
         const toolUsageData = [
-            { tool: 'Circles', user: 'User 1', action: `Added ${updateCounter('circles', 1)} circles` },
-            { tool: 'Shapes', user: 'User 2', action: `Added ${updateCounter('shapes', 1)} shapes` },
-            { tool: 'Deleted', user: 'User 3', action: `Deleted ${updateCounter('deleted', 1)} items` },
-            { tool: 'Circles', user: 'User 4', action: `Modified ${updateCounter('modified', 1)} circles` }
+            { tool: 'Circles', user: 'Admin', action: `Added ${updateCounter('circles', 1)} circles` },
+            { tool: 'Shapes', user: 'Tasha', action: `Added ${updateCounter('shapes', 1)} shapes` },
+            { tool: 'Deleted', user: 'John', action: `Deleted ${updateCounter('deleted', 1)} items` },
+            { tool: 'Circles', user: 'Natalie', action: `Modified ${updateCounter('modified', 1)} circles` }
         ];
 
         const toolUsageTable = document.getElementById('tool-usage');
@@ -127,9 +127,9 @@
 
         // Top Contributions by Action Type
         const topContributionsData = [
-            { username: 'User A', circles: updateCounter('userA_circles', 1), rectangles: updateCounter('userA_rectangles', 1), triangles: updateCounter('userA_triangles', 1) },
-            { username: 'User B', circles: updateCounter('userB_circles', 1), rectangles: updateCounter('userB_rectangles', 1), triangles: updateCounter('userB_triangles', 1) },
-            { username: 'User C', circles: updateCounter('userC_circles', 1), rectangles: updateCounter('userC_rectangles', 1), triangles: updateCounter('userC_triangles', 1) }
+            { username: 'Yolanda', circles: updateCounter('userA_circles', 1), rectangles: updateCounter('userA_rectangles', 1), triangles: updateCounter('userA_triangles', 1) },
+            { username: 'Tasha', circles: updateCounter('userB_circles', 1), rectangles: updateCounter('userB_rectangles', 1), triangles: updateCounter('userB_triangles', 1) },
+            { username: 'Natalie', circles: updateCounter('userC_circles', 1), rectangles: updateCounter('userC_rectangles', 1), triangles: updateCounter('userC_triangles', 1) }
         ];
 
         const topContributionsTable = document.getElementById('top-contributions');
